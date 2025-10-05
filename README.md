@@ -1,13 +1,13 @@
-##🍂 BeanStack — Simple Shopping Cart
+<h2>🍂 BeanStack — Simple Shopping Cart</h2>
 
 A simple shopping cart app that you can have dreams about — and it’s okay.
 
-##🧩 Overview
+<h2>🧩 Overview</h2>
 
 BeanStack is a full-stack application built using React and JavaScript.
 It enables users to browse and shop for products efficiently with a clean and responsive UI.
 
-##⚙️ Tech Stack
+<h2>⚙️ Tech Stack</h2>
 
 Frontend: React, TailwindCSS
 
@@ -17,7 +17,7 @@ Database: LocalStorage
 
 Other Tools: Vite
 
-##🏗️ Project Setup
+<h2>🏗️ Project Setup</h2>
 
 Follow these steps to set up and run the project locally 👇
 
@@ -46,18 +46,18 @@ Frontend<br>
 cd frontend<br>
 npm run dev
 
-##🙏 Final Step ( Recommended 😄)
+<h2>🙏 Final Step ( Recommended 😄)</h2>
 
 Pray to the old gods and the new — the Seven, the Lord of Light, or any deity that listens.
 If the app works, bless this code and enjoy your shopping spree 🛒✨
 
-##🌐 Your App Should Now Be Running At
+<h2>🌐 Your App Should Now Be Running At</h2>
 
 👉 Frontend: http://localhost:5173
 
 👉 Backend API: http://localhost:3001
 
-🧪 Running Tests
+<h2>🧪 Running Tests</h2>
 
 If you’ve implemented tests, here’s how to execute them:
 
@@ -69,7 +69,7 @@ Frontend Tests<br>
 cd frontend<br>
 npm test<br>
 
-##🧑‍💻 Author
+<h2>🧑‍💻 Author</h2>
 
 Kartik Jachak
 📧 kartikjachak16@gmail.com
