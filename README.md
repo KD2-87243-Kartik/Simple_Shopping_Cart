@@ -17,7 +17,7 @@
 🏗️ <span style="font-size:24px;">Project Setup</span>
 <p style="font-size:15px;">Follow these steps to set up and run the project locally.</p>
 🔹 Step 1: Clone the repository
-git clone https://github.com/yourusername/Simple_Shopping_Cart.git
+git clone https://github.com/yourusername/Simple_Shopping_Cart.git<br>
 cd Simple_Shopping_Cart
 
 🔹 Step 2: Install dependencies
