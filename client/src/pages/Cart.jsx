@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { useAppContext } from "../context/AppContext"
 import { assets, dummyAddress } from "../assets/assets"
+import toast from "react-hot-toast"
 
 const Cart = () => {
-    const {products, currency, cartItems, removeFromCart, getCartCount, updateCartItem, navigate, getCartAmount, checkoutOrder} = useAppContext()
+    const {products, currency, cartItems, removeFromCart, getCartCount, updateCartItem, navigate, getCartAmount, checkoutOrder, addOrderToHistory} = useAppContext()
     const [cartArray, setCartArray] = useState([])
     const [addresses, setAddresses] = useState(dummyAddress)
     const [showAddress, setShowAddress] = useState(false)
@@ -13,22 +14,61 @@ const Cart = () => {
     const getCart = ()=> {
         let tempArray = []
         for(const key in cartItems){
-            const product = products.find((item)=> item._id === key)
-            product.quantity = cartItems[key]
-            tempArray.push(product)
+            const product = products.find((item)=> item.id == key)
+            if (product) { // ✅ CRITICAL SAFETY CHECK: Only process if the product was found
+                // This line (Line 17) will no longer crash because 'product' is defined
+                product.quantity = cartItems[key]
+                tempArray.push(product)
+            }
         }
         setCartArray(tempArray);
     }
 
     const placeOrder = async ()=> {
-        const success = await checkoutOrder();
+    const orderItems = cartArray.map(item => ({
+        id: item.id, 
+        quantity: item.quantity
+    }));
 
-        // 2. Navigate after successful checkout
-        if (success) {
-            navigate('/my-orders'); 
-            scrollTo(0,0);
-        }
+    if (orderItems.length === 0) {
+        toast.error("Your cart is empty.");
+        return;
     }
+
+    const response = await fetch('http://localhost:3001/checkout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ cartItems: orderItems })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+        const newOrder = {
+            _id: Date.now().toString(), 
+            // Save only the IDs to map to live products later
+            items: cartArray.map(item => ({
+                product: { id: item.id }, 
+                quantity: item.quantity
+            })),
+            amount: getCartAmount() + getCartAmount() * 0.02, // Total amount + 2% tax
+            paymentType: paymentOption,
+            status: "Processing",
+            createdAt: new Date().toISOString(),
+        };
+
+        addOrderToHistory(newOrder); 
+        
+        toast.success("Order Placed Successfully!")
+        navigate('/my-orders');
+        
+    } else {
+        toast.error("Order Placement Failed.");
+    }
+}
+
 
     useEffect(()=> {
         if(products.length > 0 && cartItems){
@@ -73,7 +113,7 @@ const Cart = () => {
                             </div>
                         </div>
                         <p className="text-center">{currency}{product.offerPrice * product.quantity}</p>
-                        <button onClick={()=> removeFromCart(product._id)} className="cursor-pointer mx-auto">
+                        <button onClick={()=> removeFromCart(product.id)} className="cursor-pointer mx-auto">
                             <img src={assets.remove_icon} alt="remove" className="inline-block w-6 h-6"/>
                         </button>
                     </div>)
@@ -121,18 +161,18 @@ const Cart = () => {
                 <hr className="border-gray-300" />
 
                 <div className="text-gray-500 mt-4 space-y-2">
-                    <p className="flex justify-between">
-                        <span>Price</span><span>{currency}{getCartAmount}</span>
-                    </p>
-                    <p className="flex justify-between">
+                    <div className="flex justify-between">
+                        <span>Price</span><span>{currency}{getCartAmount()}</span>
+                    </div>
+                    <div className="flex justify-between">
                         <span>Shipping Fee</span><span className="text-green-600">Free</span>
-                    </p>
-                    <p className="flex justify-between">
+                    </div>
+                    <div className="flex justify-between">
                         <p>Tax (2%)</p><span>{currency}{getCartAmount() * 2/100}</span>
-                    </p>
-                    <p className="flex justify-between text-lg font-medium mt-3">
+                    </div>
+                    <div className="flex justify-between text-lg font-medium mt-3">
                         <span>Total Amount:</span><span>{currency}{getCartAmount() + getCartAmount() * 2/100}</span>
-                    </p>
+                    </div>
                 </div>
 
                 <button 

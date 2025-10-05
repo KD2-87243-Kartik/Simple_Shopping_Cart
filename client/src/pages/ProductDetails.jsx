@@ -11,7 +11,7 @@ const ProductDetails = () => {
     const [relatedProducts, setRelatedProduct] = useState([])    
     const [thumbnail, setThumbnail] = useState(null);
 
-    const product = products.find((item)=> item._id == id);
+    const product = products.find((item)=> item.id == id);
 
     useEffect(()=> {
         if(products.length > 0) {

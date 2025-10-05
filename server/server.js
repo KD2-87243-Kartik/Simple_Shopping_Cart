@@ -6,6 +6,9 @@ const port = 3001;
 // Middleware
 app.use(cors()); 
 app.use(express.json());
+
+// --- Hardcoded Product Data (Core Feature 1) ---
+// Note: 'imageKey' is a string reference that the frontend will map to the actual imported image.
 const rawProducts = [
       // Vegetables
       {
@@ -584,8 +587,9 @@ const rawProducts = [
         updatedAt: "2025-03-25T07:18:13.103Z",
         inStock: true
       }
-    ];
+];
 
+// --- API Endpoint: GET /products ---
 app.get('/products', (req, res) => {
     console.log('GET /products requested.');
      const mappedProducts = rawProducts.map(p => {
@@ -607,6 +611,41 @@ app.get('/products', (req, res) => {
     res.json(mappedProducts);
 });
 
+// --- API Endpoint: POST /checkout (Core Feature 2) ---
+app.post('/checkout', (req, res) => {
+    // Expected body: { cartItems: [{ id: 1, quantity: 2 }, ...] }
+    const { cartItems } = req.body; 
+
+    if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
+        return res.status(400).json({ success: false, message: 'Cart items list is empty or invalid.' });
+    }
+
+    // Log the order details to the console (Evaluation Requirement)
+    console.log('\n--- NEW ORDER RECEIVED ---');
+    console.log('Order Details:');
+    let totalPrice = 0;
+    
+    cartItems.forEach(item => {
+        const product = rawProducts.find(p => p.id === item.id);
+        const name = product ? product.name : `Product ID ${item.id} (Unknown)`;
+        const price = product ? (product.offerPrice || product.price) : 0;
+        totalPrice += price * item.quantity;
+
+        console.log(`- Item: ${name}, Quantity: ${item.quantity}, Price: $${price.toFixed(2)}`);
+    });
+    
+    console.log(`TOTAL ORDER AMOUNT: $${totalPrice.toFixed(2)}`);
+    console.log('--------------------------\n');
+
+    // Return a success message
+    res.json({
+        success: true,
+        message: 'Order placed successfully! Details logged to the server console.',
+        orderSummary: cartItems
+    });
+});
+
+// Start the server
 app.listen(port, () => {
     console.log(`Backend server running at http://localhost:${port}`);
 });

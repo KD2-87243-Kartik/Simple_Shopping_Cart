@@ -1,19 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../context/AppContext'
-import { dummyOrders } from '../assets/assets'
+// import { dummyOrders } from '../assets/assets'
 
 const MyOrders = () => {
 
-    const [myOrders, setMyOrders] = useState([])
-    const { currency } = useAppContext()
+    const { currency, products, orders } = useAppContext() 
+    const [mappedOrders, setMappedOrders] = useState([]) // Local state for displaying enriched orders
 
-    const fetchMyOrders = async ()=> {
-        setMyOrders(dummyOrders)
+    // Helper to enrich orders with live product data
+    const mapOrdersToProducts = ()=> {
+        // Safety Check: Crash Prevention
+        if (!orders || orders.length === 0 || !products || products.length === 0) { 
+            setMappedOrders([]); 
+            return; 
+        }
+
+        const enrichedOrders = orders.map(order => {
+            
+            const itemsWithLiveProducts = order.items.map(item => {
+                const productId = item.product.id || item.product.id; 
+                
+                const liveProduct = products.find(p => p.id == productId); 
+                
+                return {
+                    ...item,
+                    product: liveProduct || item.product, 
+                };
+            });
+
+            return { ...order, items: itemsWithLiveProducts };
+        });
+
+        setMappedOrders(enrichedOrders);
     }
 
     useEffect(()=> {
-        fetchMyOrders()
-    },[])
+        // 2. Map orders whenever the live 'orders' or 'products' state updates
+        mapOrdersToProducts()
+    },[orders, products])
 
   return (
     <div className='mt-16 pb-16'>
@@ -21,14 +45,16 @@ const MyOrders = () => {
             <p className='text-2xl font-medium uppercase'>My Orders</p>
             <div className='w-16 h-0.5 bg-primary rounded-full'></div>
         </div>
-        {myOrders.map((order, index)=>(
+        {mappedOrders.length > 0 ? (
+            mappedOrders.map((order, index)=> (
             <div key={index} className='border border-gray-300 rounded-lg mb-10 p-4 py-5 max-w-4xl'>
                 <p className='flex justify-between md:items-center text-gray-400 md:font-medium max-md:flex-col'>
-                    <span>OrderId: {order._id}</span>
+                    <span>OrderId: {order.id}</span>
                     <span>Payment: {order.paymentType}</span>
                     <span>Total Amount: {currency}{order.amount}</span>
                 </p>
                 {order.items.map((item, index)=> (
+                  item.product && item.product.image && item.product.image[0] ? ( 
                     <div key={index} className= {`relative bg-white text-gray-500/70 
                         ${order.items.length !== index + 1 && "border-b"} 
                             border-gray-300 flex flex-col md:flex-row md:items-center justify-between p-4 py-5 md:gap-16 w-full max-w 4xl"`}>
@@ -50,9 +76,18 @@ const MyOrders = () => {
                                 Amount: {currency}{item.product.offerPrice * item.quantity}
                             </p>
                     </div>
-                ))}
+                        ) : null 
+                    ))}
+                </div>
+            ))
+        ) : (
+             // Display a message if no orders are present
+             <div className='flex items-center justify-center h-[60vh]'>
+                <p className='text-2xl font-medium text-gray-500'>
+                    You haven't placed any orders yet.
+                </p>
             </div>
-        ))}
+        )}
     </div>
   )
 }
