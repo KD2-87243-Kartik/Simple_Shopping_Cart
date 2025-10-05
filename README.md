@@ -30,12 +30,12 @@ cd Simple_Shopping_Cart
 If your project has separate folders for backend and frontend:
 
 # For backend
-cd backend
-npm install
+cd backend<br>
+npm install<br>
 
 # For frontend
-cd ../frontend
-npm install
+cd ../frontend<br>
+npm install<br>
 
 🔹 Step 3: Run the Project<br>
 Backend<br>
@@ -63,7 +63,7 @@ If you’ve implemented tests, here’s how to execute them:
 
 Backend Tests<br>
 cd backend<br>
-npm test<br>
+npm jest<br>
 
 Frontend Tests<br>
 cd frontend<br>
