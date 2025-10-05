@@ -586,6 +586,27 @@ const rawProducts = [
       }
     ];
 
+app.get('/products', (req, res) => {
+    console.log('GET /products requested.');
+     const mappedProducts = rawProducts.map(p => {
+        
+        // Defensive check: If the product or its ID is missing, return null
+        if (!p || p.id === undefined) {
+            console.warn("Skipped malformed product entry.");
+            return null; 
+        }
+
+        // Only proceed if p and p.id are valid
+        return {
+            ...p,
+            id: p.id.toString(), 
+            imageKey: [p.imageKey],
+        };
+    }).filter(p => p !== null); // Remove all the null entries (the bad products)
+
+    res.json(mappedProducts);
+});
+
 app.listen(port, () => {
     console.log(`Backend server running at http://localhost:${port}`);
 });
