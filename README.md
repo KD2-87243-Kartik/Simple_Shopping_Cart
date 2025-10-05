@@ -1,26 +1,31 @@
-<span style="font-size:32px;">🍂BeanStack - Simple Shopping Cart</span>
-<p style="font-size:16px;">A Simple Shopping Cart App that you can have dreams about, and it's okay</p>
+🍂 BeanStack — Simple Shopping Cart
 
-🧩 <span style="font-size:24px;">Overview</span>
-<p style="font-size:15px;">
-  BeanStack is a full-stack Application built using React and JavaScript. It enables users to shop for their product more 
-  efficiently with a simple and responsive UI 
-</p>
+A simple shopping cart app that you can have dreams about — and it’s okay.
 
-⚙️ <span style="font-size:24px;">Tech Stack</span>
-<p style="font-size:15px;"> 
-  <strong>Frontend:</strong> React, TailwindCSS
-  <br> <strong>Backend:</strong> Node.js, Express<br> 
-  <strong>Database:</strong> LocalStorage<br> <strong>
-  Other Tools:</strong> Vite </p>
+🧩 Overview
 
-🏗️ <span style="font-size:24px;">Project Setup</span>
-<p style="font-size:15px;">Follow these steps to set up and run the project locally.</p>
-🔹 Step 1: Clone the repository
-git clone https://github.com/yourusername/Simple_Shopping_Cart.git<br>
+BeanStack is a full-stack application built using React and JavaScript.
+It enables users to browse and shop for products efficiently with a clean and responsive UI.
+
+⚙️ Tech Stack
+
+Frontend: React, TailwindCSS
+
+Backend: Node.js, Express
+
+Database: LocalStorage
+
+Other Tools: Vite
+
+🏗️ Project Setup
+
+Follow these steps to set up and run the project locally 👇
+
+🔹 Step 1: Clone the Repository
+git clone https://github.com/yourusername/Simple_Shopping_Cart.git
 cd Simple_Shopping_Cart
 
-🔹 Step 2: Install dependencies
+🔹 Step 2: Install Dependencies
 
 If your project has separate folders for backend and frontend:
 
@@ -30,30 +35,41 @@ npm install
 
 # For frontend
 cd ../frontend
-npm install  
+npm install
 
-Step 4: Run the project
-Backend:
+🔹 Step 3: Run the Project
+Backend
 cd backend
 npm start
 
-Frontend:
+Frontend
 cd frontend
 npm run dev
 
-###<strong>🙏 After these steps, pray to the old gods and the new, the SEVEN, Lord of Light, Red god, 
-Any god that listens to, if the app works, then send your blessing to this soul and enjoy the app</strong> 
+🙏 Final Step ( Recommended 😄)
 
-<p style="font-size:14px;"> Your app should now be running at:<br> 👉 
-  <b>Frontend:</b> http://localhost:5173 <br>
-  👉 <b>Backend API:</b> http://localhost:3001 </p>
+Pray to the old gods and the new — the Seven, the Lord of Light, or any deity that listens.
+If the app works, bless this code and enjoy your shopping spree 🛒✨
 
-🧪 <span style="font-size:24px;">Running Tests</span>
-<p style="font-size:15px;">If you’ve implemented tests, include how to execute them.</p>
+🌐 Your App Should Now Be Running At
+
+👉 Frontend: http://localhost:5173
+
+👉 Backend API: http://localhost:3001
+
+🧪 Running Tests
+
+If you’ve implemented tests, here’s how to execute them:
+
 Backend Tests
 cd backend
-npm jest
+npm test
 
 Frontend Tests
 cd frontend
-npm test  
+npm test
+
+🧑‍💻 Author
+
+Kartik Jachak
+📧 kartikjachak16@gmail.com
