@@ -21,8 +21,8 @@ Other Tools: Vite
 
 Follow these steps to set up and run the project locally 👇
 
-🔹 Step 1: Clone the Repository
-git clone https://github.com/yourusername/Simple_Shopping_Cart.git
+🔹 Step 1: Clone the Repository<br>
+git clone https://github.com/yourusername/Simple_Shopping_Cart.git<br>
 cd Simple_Shopping_Cart
 
 🔹 Step 2: Install Dependencies
@@ -37,13 +37,13 @@ npm install
 cd ../frontend
 npm install
 
-🔹 Step 3: Run the Project
-Backend
-cd backend
-npm start
+🔹 Step 3: Run the Project<br>
+Backend<br>
+cd backend<br>
+npm start<br>
 
-Frontend
-cd frontend
+Frontend<br>
+cd frontend<br>
 npm run dev
 
 🙏 Final Step ( Recommended 😄)
@@ -61,13 +61,13 @@ If the app works, bless this code and enjoy your shopping spree 🛒✨
 
 If you’ve implemented tests, here’s how to execute them:
 
-Backend Tests
-cd backend
-npm test
+Backend Tests<br>
+cd backend<br>
+npm test<br>
 
-Frontend Tests
-cd frontend
-npm test
+Frontend Tests<br>
+cd frontend<br>
+npm test<br>
 
 🧑‍💻 Author
 
